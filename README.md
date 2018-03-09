@@ -52,7 +52,7 @@ Disable keymappings with:
 
     let g:local_history_disable_mappings = 1
 
-Change the position in which files are opened (eg. |vs|, |sp|, |edit|, |botright| |vs|, etc):
+Change the position in which files are opened (eg. `vs`, `sp`, `edit`, `botright` `vs`, etc):
 
     let g:lh_open_mode = 'bo vs'
 
@@ -83,7 +83,6 @@ Activate autobackup after save, if no recent backup is found (frequency in minut
 #### Commands                                                  
 
 
-|----------------------|------------------------|---------|
 |Command               | Mapping                | Default |
 |----------------------|------------------------|---------|
 |:LHwrite              | `<Plug>LHWriteDated`   | ght     |
