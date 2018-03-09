@@ -58,7 +58,7 @@ endfun
 fun! lh#delete_backups(...)
     for file in a:000
         let path = lh#full_path(file)
-        silent execute '!rm '.path 
+        silent execute '!rm '.path
         redraw!
         echom "Deleted ".path
     endfor
@@ -67,7 +67,16 @@ endfun
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! lh#open_backup(file)
-    exe "edit ".lh#full_path(a:file)
+    exe g:lh_open_mode. " " . lh#full_path(a:file)
+    let &syntax = s:file_syntax
+endfun
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+fun! lh#diff(file)
+    diffthis
+    let vert = g:lh_vert_diff ? 'vert ' : ''
+    exe vert."diffsplit ".lh#full_path(a:file)
     let &syntax = s:file_syntax
 endfun
 
