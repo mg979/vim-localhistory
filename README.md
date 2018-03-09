@@ -70,12 +70,12 @@ after Vim has beee restarted.
 
 Activate autobackup on first access to a file, and max size (default 10240 bytes):
 
-  `let g:lh_autobackup_first = 1`
-  `let g:lh_autobackup_size  = 51200`
+    let g:lh_autobackup_first = 1
+    let g:lh_autobackup_size  = 51200
 
 Activate autobackup after save, if no recent backup is found (frequency in minutes):
 
-    `let g:lh_autobackup_frequency = 60`
+    let g:lh_autobackup_frequency = 60
 
 
 
