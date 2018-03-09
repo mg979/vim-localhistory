@@ -31,7 +31,7 @@ fun! lh#backup_file(...)
     endif
 
     let bkname = b:lh_dir."/".fname." ".bkname
-    silent exe '!cp '.escape(expand("%:p"), ' ').' '.escape(bkname, ' ')
+    silent exe '!cp '.fnameescape(expand("%:p")).' '.fnameescape(bkname)
     redraw!
     echom "Created ".bkname
 endfun
@@ -83,7 +83,7 @@ endfun
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! lh#full_path(file)
-    return escape(b:lh_dir."/".a:file, ' ')
+    return fnameescape(b:lh_dir."/".a:file)
 endfun
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
