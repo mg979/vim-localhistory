@@ -95,7 +95,22 @@ endfun
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! lh#auto_backup()
+    let now = system('date +%s') | let recent = 0
+    let files = lh#get_files() | let basename = expand("%:t")
 
+    " exclude other files in the same dir that are not the current one
+    call filter(files, 'v:val =~ "^".b:lh_dir.lh#sep().basename." "')
+
+    " find the last time of modification for matching backup files
+    for f in files
+        let last_mod = system('stat -c %Y '.fnameescape(f))
+        if last_mod > recent | let recent = last_mod | endif
+    endfor
+
+    " create new backup if the most recent is older than lh_autobackup_frequency
+    if now - recent > g:lh_autobackup_frequency*60
+        call lh#backup_file()
+    endif
 endfun
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

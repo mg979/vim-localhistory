@@ -46,13 +46,9 @@ augroup plugin-lh
     autocmd!
     autocmd BufEnter * call lh#bufenter()
 
-    "autocmd BufEnter * call lh#make_backup_dir()
-    "if g:lh_autobackup_first
-        "autocmd BufEnter * call lh#auto_first()
-    "endif
-    "if g:lh_autobackup_frequency
-        "autocmd BufWritePost * call lh#auto_backup()
-    "endif
+    if g:lh_autobackup_frequency
+        autocmd BufWritePost * call lh#auto_backup()
+    endif
 augroup END
 
 

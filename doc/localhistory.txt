@@ -7,6 +7,7 @@ LOCAL HISTORY - TABLE OF CONTENTS                             *localhistory-toc*
     Requirements                          |localhistory-requirements|
     Installation                          |localhistory-installation|
     Usage                                 |localhistory-usage|
+    Autobackup                            |localhistory-autobackup|
     Commands                              |localhistory-commands|
     Credits                               |localhistory-credits|
     License                               |localhistory-license|
@@ -16,9 +17,7 @@ LOCAL HISTORY - TABLE OF CONTENTS                             *localhistory-toc*
 INTRODUCTION                                                *localhistory-intro*
 ==============================================================================
 
-This plugin is a simplified port of Sublime Text localhistory plugin. The main
-difference is that there is no autobackup feature, only manual backup.
-Some sort of autobackup could be added in the future.
+This plugin is a port of Sublime Text localhistory plugin.
 
 Features:
 
@@ -27,6 +26,7 @@ Features:
 * load/delete backups with fzf
 * diff with dated backups/snapshots
 * optional autobackup on first load (configurable max size)
+* optional autobackup on save, if no recent backups are found (configurable)
 
 
 
@@ -77,10 +77,22 @@ Set to 0 if you prefer horizontal split for diff windows:
 
     `let g:lh_vert_diff = 0`
 
+
+
+AUTOBACKUP                                             *localhistory-autobackup*
+==============================================================================
+
+To enable autobackup, you must first set these variables. It will only work
+after Vim has beee restarted.
+
 Activate autobackup on first access to a file, and max size (default 10240 bytes):
 
-    `let g:lh_autobackup_first = 1`
-    `let g:lh_autobackup_size  = 51200`
+  `let g:lh_autobackup_first = 1`
+  `let g:lh_autobackup_size  = 51200`
+
+Activate autobackup after save, if no recent backup is found (frequency in minutes):
+
+    `let g:lh_autobackup_frequency = 60`
 
 
 
