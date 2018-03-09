@@ -100,6 +100,7 @@ Activate autobackup after save, if no recent backup is found (frequency in minut
     LHsnapshot      : load a snapshot
     LHdiff          : select a backup and open a split diff window
     LHdelete        : delete backups for current dir (all types)
+    LHall           : load any backup
 
 `LHdated`, `LHsnapshot`, `LHdiff`, `LHall` and `LHdelete` use *fzf-vim*, and you can
 select multiple files.
