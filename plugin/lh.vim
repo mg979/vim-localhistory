@@ -12,11 +12,11 @@ let g:lh_autobackup_first = get(g:, 'lh_autobackup_first', 0)
 
 command! -nargs=? LHwrite call lh#backup_file(<f-args>)
 
-com! LHDate call fzf#run({'source': lh#find_files(0),
+com! LHdate call fzf#run({'source': lh#find_files(0),
             \ 'sink': function('lh#open_backup'), 'down': '30%',
             \ 'options': '--multi --reverse --prompt "Local History >>>  "'})
 
-com! LHSnapshots call fzf#run({'source': lh#find_files(1),
+com! LHsnapshot call fzf#run({'source': lh#find_files(1),
             \ 'sink': function('lh#open_backup'), 'down': '30%',
             \ 'options': '--multi --reverse --prompt "Snapshots >>>  "'})
 
@@ -37,3 +37,31 @@ augroup plugin-lh
     "endif
 augroup END
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if !exists('g:local_history_disable_mappings')
+    if !hasmapto('<Plug>LHWriteDate')
+        map <unique> <leader>hwd <Plug>LHWriteDate
+    endif
+    if !hasmapto('<Plug>LHWriteSnapshot')
+        map <unique> <leader>hws <Plug>LHWriteSnapshot
+    endif
+    if !hasmapto('<Plug>LHLoadDate')
+        map <unique> <leader>hld <Plug>LHLoadDate
+    endif
+    if !hasmapto('<Plug>LHLoadSnapshot')
+        map <unique> <leader>hls <Plug>LHLoadSnapshot
+    endif
+    if !hasmapto('<Plug>LHDelete')
+        map <unique> <leader>hD <Plug>LHDelete
+    endif
+endif
+
+nnoremap <silent> <unique> <script> <Plug>LHWriteDate     :LHwrite<cr>
+nnoremap <unique> <script>          <Plug>LHWriteSnapshot :LHwrite<Space>
+nnoremap <silent> <unique> <script> <Plug>LHLoadDate      :LHdate<cr>
+nnoremap <silent> <unique> <script> <Plug>LHLoadSnapshot  :LHsnapshot<cr>
+nnoremap <silent> <unique> <script> <Plug>LHDelete        :LHDelete<cr>

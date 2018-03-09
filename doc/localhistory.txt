@@ -1,0 +1,109 @@
+*localhistory.txt*    localhistory     Version 0.1.0    Last change: March 9 2018
+
+LOCAL HISTORY - TABLE OF CONTENTS                             *localhistory-toc*
+==============================================================================
+
+    Introduction                          |localhistory-intro|
+    Requirements                          |localhistory-requirements|
+    Installation                          |localhistory-installation|
+    Usage                                 |localhistory-usage|
+    Commands                              |localhistory-commands|
+    Credits                               |localhistory-credits|
+    License                               |localhistory-license|
+
+
+
+INTRODUCTION                                                *localhistory-intro*
+==============================================================================
+
+This plugin is a simplified port of Sublime text localhistory plugin.
+
+Features:
+
+* automatic backup directories generation, mirroring actual file path
+* save backups with date or name (snapshots)
+* load/delete backups with fzf
+
+
+
+
+REQUIREMENTS                                         *localhistory-requirements*
+==============================================================================
+
+{fzf-vim}{1} is required.
+
+Tested in Linux only.
+                                       {1} https://github.com/junegunn/fzf.vim
+
+
+
+INSTALLATION                                         *localhistory-installation*
+==============================================================================
+
+Use {vim-plug}{2} or any other Vim plugin manager.
+
+With vim-plug:
+
+    `Plug 'mg979/vim-localhistory'`
+
+                                      {2} https://github.com/junegunn/vim-plug
+
+
+
+USAGE                                                       *localhistory-usage*
+==============================================================================
+
+You can set the base directory:
+
+    `let g:lh_basedir = '~/.vim/local_history'`
+
+When saving a backup, the file will mirror the original path inside the base dir:
+
+    `/some/path/file -> ~/.vim/local_history/some/path/file`
+
+Disable keymappings with:
+
+    `let g:local_history_disable_mappings = 1`
+
+
+COMMANDS                                                  *localhistory-commads*
+==============================================================================
+
+
+ ----------------------+--------------------------+---------------------------
+ Command               | Mapping                  | Default                  ~
+ ----------------------+--------------------------+---------------------------
+ :LHwrite              | <Plug>LHWriteDate        | <leader>hwd
+ :LHwrite <name>       | <Plug>LHWriteSnapshot    | <leader>hws
+ :LHdate               | <Plug>LHLoadDate         | <leader>hld
+ :LHsnapshots          | <Plug>LHLoadSnapshot     | <leader>hls
+ :LHDelete             | <Plug>LHDelete           | <leader>hD
+
+LHwrite         : write a backup with date
+LHwrite <name>  : write a named backup (snapshot)
+LHdate          : load a backup with a date
+LHsnapshots     : load a snapshot
+LHDelete        : delete backups for current dir (all types)
+
+LHdate, LHsnapshots and LHDelete use fzf, and you can select multiple files.
+
+
+
+CREDITS                                                   *localhistory-credits*
+==============================================================================
+
+Braam Moolenaar for Vim
+
+
+
+LICENSE                                                   *localhistory-license*
+==============================================================================
+
+MIT
+
+
+==============================================================================
+vim:tw=78:sw=2:ts=2:ft=help:norl:nowrap:
+
+
+
