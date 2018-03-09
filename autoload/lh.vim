@@ -95,6 +95,7 @@ endfun
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! lh#auto_backup()
+    if getfsize(file) > g:lh_autobackup_size | return | endif
     let now = system('date +%s') | let recent = 0
     let files = lh#get_files() | let basename = expand("%:t")
 

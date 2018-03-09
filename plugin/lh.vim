@@ -57,6 +57,9 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if !exists('g:local_history_disable_mappings')
+    if !hasmapto('<Plug>LHLoadAll')
+        map <unique> gha <Plug>LHLoadAll
+    endif
     if !hasmapto('<Plug>LHWriteDate')
         map <unique> ght <Plug>LHWriteDated
     endif
@@ -77,6 +80,7 @@ if !exists('g:local_history_disable_mappings')
     endif
 endif
 
+nnoremap <silent> <unique> <script> <Plug>LHLoadAll       :LHall<cr>
 nnoremap <silent> <unique> <script> <Plug>LHWriteDated    :LHwrite<cr>
 nnoremap <unique> <script>          <Plug>LHWriteSnapshot :LHwrite<Space>
 nnoremap <silent> <unique> <script> <Plug>LHLoadDated     :LHdated<cr>

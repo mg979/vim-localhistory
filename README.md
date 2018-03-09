@@ -4,7 +4,8 @@
 ---
 #### Introduction                                                
 
-This plugin is a port of Sublime Text localhistory plugin.
+This plugin creates automatic and/or manual backups for your files, in
+predefined paths. Backups can be browsed with fzf-vim.
 
 Features:
 
@@ -66,7 +67,7 @@ Set to 0 if you prefer horizontal split for diff windows:
 #### Autobackup                                             
 
 To enable autobackup, you must first set these variables. It will only work
-after Vim has beee restarted.
+after Vim has been restarted. Max size affects both types of autobackup.
 
 Activate autobackup on first access to a file, and max size (default 10240 bytes):
 
@@ -91,6 +92,7 @@ Activate autobackup after save, if no recent backup is found (frequency in minut
 |:LHdated              | `<Plug>LHLoadDated`    | ghT     |
 |:LHsnapshot           | `<Plug>LHLoadSnapshot` | ghS     |
 |:LHdelete             | `<Plug>LHDelete`       | ghD     |
+|:LHall                | `<Plug>LHLoadAll`      | gha     |
 
     LHwrite         : write a backup with date
     LHwrite <name>  : write a named backup (snapshot)
@@ -99,7 +101,8 @@ Activate autobackup after save, if no recent backup is found (frequency in minut
     LHdiff          : select a backup and open a split diff window
     LHdelete        : delete backups for current dir (all types)
 
-LHdated, LHsnapshot, LHdiff and LHdelete use fzf, and you can select multiple files.
+`LHdated`, `LHsnapshot`, `LHdiff`, `LHall` and `LHdelete` use *fzf-vim*, and you can
+select multiple files.
 
 
 

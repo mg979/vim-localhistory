@@ -17,7 +17,8 @@ LOCAL HISTORY - TABLE OF CONTENTS                             *localhistory-toc*
 INTRODUCTION                                                *localhistory-intro*
 ==============================================================================
 
-This plugin is a port of Sublime Text localhistory plugin.
+This plugin creates automatic and/or manual backups for your files, in
+predefined paths. Backups can be browsed with fzf-vim.
 
 Features:
 
@@ -83,7 +84,7 @@ AUTOBACKUP                                             *localhistory-autobackup*
 ==============================================================================
 
 To enable autobackup, you must first set these variables. It will only work
-after Vim has beee restarted.
+after Vim has been restarted. Max size affects both types of autobackup.
 
 Activate autobackup on first access to a file, and max size (default 10240 bytes):
 
@@ -109,6 +110,7 @@ COMMANDS                                                  *localhistory-commads*
  :LHdated              | <Plug>LHLoadDated        | ghT
  :LHsnapshot           | <Plug>LHLoadSnapshot     | ghS
  :LHdelete             | <Plug>LHDelete           | ghD
+ :LHall                | <Plug>LHLoadAll          | gha
 
 LHwrite         : write a backup with date
 LHwrite <name>  : write a named backup (snapshot)
@@ -116,8 +118,10 @@ LHdated         : load a backup with a date
 LHsnapshot      : load a snapshot
 LHdiff          : select a backup and open a split diff window
 LHdelete        : delete backups for current dir (all types)
+LHall           : load any backup
 
-LHdated, LHsnapshot, LHdiff and LHdelete use fzf, and you can select multiple files.
+`LHdated`, `LHsnapshot`, `LHdiff`, `LHall` and `LHdelete` use |fzf-vim|, and you can
+select multiple files.
 
 
 
