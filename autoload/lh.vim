@@ -30,7 +30,7 @@ fun! lh#backup_file(...)
         let bkname .= strftime("%d")." ".strftime("%H:%M")." ¦"
     endif
 
-    let bkname = b:lh_dir."/".fname." ".bkname
+    let bkname = b:lh_dir.lh#sep().fname." ".bkname
     silent exe '!cp '.fnameescape(expand("%:p")).' '.fnameescape(bkname)
     redraw!
     echom "Created ".bkname
@@ -46,7 +46,7 @@ fun! lh#find_files(is_snap)
         call filter(files, 'v:val '.op.' " § "') | endif
 
     for file in files
-        let file = substitute(file, b:lh_dir."/", "", "")
+        let file = substitute(file, b:lh_dir.lh#sep(), "", "")
         call add(short_names, file)
     endfor
 
@@ -82,8 +82,14 @@ endfun
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+fun! lh#sep()
+    return exists('+shellslash') && &shellslash ? '\' : '/'
+endfun
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 fun! lh#full_path(file)
-    return fnameescape(b:lh_dir."/".a:file)
+    return fnameescape(b:lh_dir.lh#sep().a:file)
 endfun
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -94,7 +100,23 @@ endfun
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-fun! lh#auto_first()
+fun! lh#bufenter()
+    let b:lh_dir = expand(g:lh_basedir.expand("%:p:h"))
 
+    if g:lh_autobackup_first
+        let file = expand("%:p")
+        if !filereadable(file) | return | endif
+        if getfsize(file) > g:lh_autobackup_size | return | endif
+
+        if !isdirectory(b:lh_dir) | call lh#make_backup_dir() | endif
+
+        let fname = expand("%:t")
+        let bkname = b:lh_dir.lh#sep().fname." § AUTOSAVE"
+        if !filereadable(bkname)
+            silent exe '!cp '.fnameescape(file).' '.fnameescape(bkname)
+            redraw!
+            echom "Created ".bkname
+        endif
+    endif
 endfun
 

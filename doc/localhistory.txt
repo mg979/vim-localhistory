@@ -26,6 +26,7 @@ Features:
 * save backups with date or name (snapshots)
 * load/delete backups with fzf
 * diff with dated backups/snapshots
+* optional autobackup on first load (configurable max size)
 
 
 
@@ -76,6 +77,11 @@ Set to 0 if you prefer horizontal split for diff windows:
 
     `let g:lh_vert_diff = 0`
 
+Activate autobackup on first access to a file, and max size (default 10240 bytes):
+
+    `let g:lh_autobackup_first = 1`
+    `let g:lh_autobackup_size  = 51200`
+
 
 
 COMMANDS                                                  *localhistory-commads*
@@ -85,12 +91,12 @@ COMMANDS                                                  *localhistory-commads*
  ----------------------+--------------------------+---------------------------
  Command               | Mapping                  | Default                  ~
  ----------------------+--------------------------+---------------------------
- :LHwrite              | <Plug>LHWriteDated       | <leader>hwd
- :LHwrite <name>       | <Plug>LHWriteSnapshot    | <leader>hws
- :LHdated              | <Plug>LHLoadDated        | <leader>hld
- :LHsnapshot           | <Plug>LHLoadSnapshot     | <leader>hls
- :LHdiff               | <Plug>LHDiff             | <leader>hd
- :LHdelete             | <Plug>LHDelete           | <leader>hD
+ :LHwrite              | <Plug>LHWriteDated       | ght
+ :LHwrite <name>       | <Plug>LHWriteSnapshot    | ghs
+ :LHdiff               | <Plug>LHDiff             | ghd
+ :LHdated              | <Plug>LHLoadDated        | ghT
+ :LHsnapshot           | <Plug>LHLoadSnapshot     | ghS
+ :LHdelete             | <Plug>LHDelete           | ghD
 
 LHwrite         : write a backup with date
 LHwrite <name>  : write a named backup (snapshot)

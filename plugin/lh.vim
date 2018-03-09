@@ -13,6 +13,7 @@ let g:lh_open_mode            = get(g:, 'lh_open_mode', 'edit')
 let g:lh_vert_diff            = get(g:, 'lh_vert_diff', 1)
 let g:lh_autobackup_frequency = get(g:, 'lh_autobackup_frequency', 0)
 let g:lh_autobackup_first     = get(g:, 'lh_autobackup_first', 0)
+let g:lh_autobackup_size      = get(g:, 'lh_autobackup_size', 10240)
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -43,7 +44,7 @@ com! LHdelete call fzf#run({'source': lh#find_files(2),
 
 augroup plugin-lh
     autocmd!
-    autocmd BufEnter * let b:lh_dir = expand(g:lh_basedir.expand("%:p:h"))
+    autocmd BufEnter * call lh#bufenter()
 
     "autocmd BufEnter * call lh#make_backup_dir()
     "if g:lh_autobackup_first
@@ -61,22 +62,22 @@ augroup END
 
 if !exists('g:local_history_disable_mappings')
     if !hasmapto('<Plug>LHWriteDate')
-        map <unique> <leader>hwd <Plug>LHWriteDated
+        map <unique> ght <Plug>LHWriteDated
     endif
     if !hasmapto('<Plug>LHWriteSnapshot')
-        map <unique> <leader>hws <Plug>LHWriteSnapshot
-    endif
-    if !hasmapto('<Plug>LHLoadDate')
-        map <unique> <leader>hld <Plug>LHLoadDated
-    endif
-    if !hasmapto('<Plug>LHLoadSnapshot')
-        map <unique> <leader>hls <Plug>LHLoadSnapshot
-    endif
-    if !hasmapto('<Plug>LHDelete')
-        map <unique> <leader>hD <Plug>LHDelete
+        map <unique> ghs <Plug>LHWriteSnapshot
     endif
     if !hasmapto('<Plug>LHDiff')
-        map <unique> <leader>hd <Plug>LHDiff
+        map <unique> ghd <Plug>LHDiff
+    endif
+    if !hasmapto('<Plug>LHLoadDate')
+        map <unique> ghT <Plug>LHLoadDated
+    endif
+    if !hasmapto('<Plug>LHLoadSnapshot')
+        map <unique> ghS <Plug>LHLoadSnapshot
+    endif
+    if !hasmapto('<Plug>LHDelete')
+        map <unique> ghD <Plug>LHDelete
     endif
 endif
 
