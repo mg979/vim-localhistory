@@ -20,25 +20,25 @@ let g:lh_autobackup_size      = get(g:, 'lh_autobackup_size', 10240)
 " Commands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-com! -nargs=? LHwrite call lh#backup_file(<f-args>)
+com! -nargs=? LHWrite call lh#backup_file(<f-args>)
 
-com! LHdated call fzf#run({'source': lh#find_files(0),
+com! LHLoadDated call fzf#run({'source': lh#find_files(0),
             \ 'sink': function('lh#open_backup'), 'down': '30%',
             \ 'options': '--multi --reverse --prompt "Local History >>>  "'})
 
-com! LHsnapshot call fzf#run({'source': lh#find_files(1),
+com! LHLoadSnapshot call fzf#run({'source': lh#find_files(1),
             \ 'sink': function('lh#open_backup'), 'down': '30%',
             \ 'options': '--multi --reverse --prompt "Snapshots >>>  "'})
 
-com! LHall call fzf#run({'source': lh#find_files(2),
+com! LHLoadAll call fzf#run({'source': lh#find_files(2),
             \ 'sink': function('lh#open_backup'), 'down': '30%',
             \ 'options': '--multi --reverse --prompt "Snapshots >>>  "'})
 
-com! LHdiff call fzf#run({'source': lh#find_files(2),
+com! LHDiff call fzf#run({'source': lh#find_files(2),
             \ 'sink': function('lh#diff'), 'down': '30%',
             \ 'options': '--reverse --prompt "Diff with backup >>>  "'})
 
-com! LHdelete call fzf#run({'source': lh#find_files(2),
+com! LHDelete call fzf#run({'source': lh#find_files(2),
             \ 'sink': function('lh#delete_backups'), 'down': '30%',
             \ 'options': '--multi --reverse --prompt "Delete Backups >>>  "'})
 
@@ -60,30 +60,30 @@ if !exists('g:local_history_disable_mappings')
     if !hasmapto('<Plug>LHLoadAll')
         map <unique> gha <Plug>LHLoadAll
     endif
-    if !hasmapto('<Plug>LHWriteDate')
-        map <unique> ght <Plug>LHWriteDated
-    endif
-    if !hasmapto('<Plug>LHWriteSnapshot')
-        map <unique> ghs <Plug>LHWriteSnapshot
-    endif
     if !hasmapto('<Plug>LHDiff')
         map <unique> ghd <Plug>LHDiff
     endif
-    if !hasmapto('<Plug>LHLoadDate')
-        map <unique> ghT <Plug>LHLoadDated
+    if !hasmapto('<Plug>LHLoadDated')
+        map <unique> ght <Plug>LHLoadDated
     endif
     if !hasmapto('<Plug>LHLoadSnapshot')
-        map <unique> ghS <Plug>LHLoadSnapshot
+        map <unique> ghs <Plug>LHLoadSnapshot
+    endif
+    if !hasmapto('<Plug>LHWriteDated')
+        map <unique> ghT <Plug>LHWriteDated
+    endif
+    if !hasmapto('<Plug>LHWriteSnapshot')
+        map <unique> ghS <Plug>LHWriteSnapshot
     endif
     if !hasmapto('<Plug>LHDelete')
         map <unique> ghD <Plug>LHDelete
     endif
 endif
 
-nnoremap <silent> <unique> <script> <Plug>LHLoadAll       :LHall<cr>
-nnoremap <silent> <unique> <script> <Plug>LHWriteDated    :LHwrite<cr>
-nnoremap <unique> <script>          <Plug>LHWriteSnapshot :LHwrite<Space>
-nnoremap <silent> <unique> <script> <Plug>LHLoadDated     :LHdated<cr>
-nnoremap <silent> <unique> <script> <Plug>LHLoadSnapshot  :LHsnapshot<cr>
-nnoremap <silent> <unique> <script> <Plug>LHDelete        :LHdelete<cr>
-nnoremap <silent> <unique> <script> <Plug>LHDiff          :LHdiff<cr>
+nnoremap <silent> <unique> <script> <Plug>LHLoadAll       :LHLoadAll<cr>
+nnoremap <silent> <unique> <script> <Plug>LHWriteDated    :LHWrite<cr>
+nnoremap <unique> <script>          <Plug>LHWriteSnapshot :LHWrite<Space>
+nnoremap <silent> <unique> <script> <Plug>LHLoadDated     :LHLoadDated<cr>
+nnoremap <silent> <unique> <script> <Plug>LHLoadSnapshot  :LHLoadSnapshot<cr>
+nnoremap <silent> <unique> <script> <Plug>LHDelete        :LHDelete<cr>
+nnoremap <silent> <unique> <script> <Plug>LHDiff          :LHDiff<cr>
