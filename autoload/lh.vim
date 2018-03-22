@@ -117,7 +117,7 @@ endfun
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! lh#bufenter()
-    let b:lh_dir = expand(g:lh_basedir.expand("%:p:h"))
+    let b:lh_dir = expand(fnamemodify(expand(g:lh_basedir), ":p:h").fnamemodify(expand("%"), ":p:h"))
 
     if g:lh_autobackup_first
         let file = expand("%:p")
