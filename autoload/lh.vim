@@ -12,8 +12,9 @@ endfun
 
 fun! lh#get_files()
     let s:file_syntax = &syntax
-    let files = globpath(b:lh_dir, "*", 1)
-    let files = split(files, '\n')
+    let files = split(globpath(b:lh_dir, "*", 1), '\n')
+    let hidden = split(globpath(b:lh_dir, ".*", 1), '\n')
+    let files = extend(files, hidden)
     return filter(files, '!isdirectory(v:val)')
 endfun
 
@@ -31,7 +32,7 @@ fun! lh#backup_file(...)
     endif
 
     let bkname = b:lh_dir.lh#sep().fname." ".bkname
-    silent exe '!cp '.fnameescape(expand("%:p")).' '.fnameescape(bkname)
+    silent exe '!cp '.fnameescape(resolve(expand("%:p"))).' '.fnameescape(bkname)
     redraw!
     echom "Created ".bkname
 endfun
@@ -89,13 +90,13 @@ endfun
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! lh#full_path(file)
-    return fnameescape(b:lh_dir.lh#sep().a:file)
+    return fnameescape((b:lh_dir.lh#sep().a:file))
 endfun
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! lh#auto_backup()
-    if getfsize(expand("%:p")) > g:lh_autobackup_size | return | endif
+    if getfsize(resolve(expand("%:p"))) > g:lh_autobackup_size | return | endif
     let now = system('date +%s') | let recent = 0
     let files = lh#get_files() | let basename = expand("%:t")
 
@@ -117,10 +118,10 @@ endfun
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! lh#bufenter()
-    let b:lh_dir = expand(fnamemodify(expand(g:lh_basedir), ":p:h").fnamemodify(expand("%"), ":p:h"))
+    let b:lh_dir = expand(fnamemodify(expand(g:lh_basedir), ":p:h").fnamemodify(resolve(expand("%")), ":p:h"))
 
     if g:lh_autobackup_first
-        let file = expand("%:p")
+        let file = resolve(expand("%:p"))
         if !filereadable(file) | return | endif
         if getfsize(file) > g:lh_autobackup_size | return | endif
 
