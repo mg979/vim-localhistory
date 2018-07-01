@@ -56,34 +56,27 @@ augroup END
 " Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+fun! s:mapkeys(keys, plug)
+    let plug = '<Plug>(LH-'.a:plug.')'
+    if maparg(a:keys, 'n') == '' && !hasmapto(plug)
+        silent! execute 'nmap <unique>' a:keys plug
+    endif
+endfun
+
 if !exists('g:local_history_disable_mappings')
-    if !hasmapto('<Plug>LHLoadAll')
-        map <unique> gha <Plug>LHLoadAll
-    endif
-    if !hasmapto('<Plug>LHDiff')
-        map <unique> ghd <Plug>LHDiff
-    endif
-    if !hasmapto('<Plug>LHLoadDated')
-        map <unique> ght <Plug>LHLoadDated
-    endif
-    if !hasmapto('<Plug>LHLoadSnapshot')
-        map <unique> ghs <Plug>LHLoadSnapshot
-    endif
-    if !hasmapto('<Plug>LHWriteDated')
-        map <unique> ghT <Plug>LHWriteDated
-    endif
-    if !hasmapto('<Plug>LHWriteSnapshot')
-        map <unique> ghS <Plug>LHWriteSnapshot
-    endif
-    if !hasmapto('<Plug>LHDelete')
-        map <unique> ghD <Plug>LHDelete
-    endif
+    call s:mapkeys('gha', 'LoadAll')
+    call s:mapkeys('ghd', 'Diff')
+    call s:mapkeys('ght', 'LoadDated')
+    call s:mapkeys('ghs', 'LoadSnapshot')
+    call s:mapkeys('ghT', 'WriteDated')
+    call s:mapkeys('ghS', 'WriteSnapshot')
+    call s:mapkeys('ghD', 'Delete')
 endif
 
-nnoremap <silent> <unique> <script> <Plug>LHLoadAll       :LHLoadAll<cr>
-nnoremap <silent> <unique> <script> <Plug>LHWriteDated    :LHWrite<cr>
-nnoremap <unique> <script>          <Plug>LHWriteSnapshot :LHWrite<Space>
-nnoremap <silent> <unique> <script> <Plug>LHLoadDated     :LHLoadDated<cr>
-nnoremap <silent> <unique> <script> <Plug>LHLoadSnapshot  :LHLoadSnapshot<cr>
-nnoremap <silent> <unique> <script> <Plug>LHDelete        :LHDelete<cr>
-nnoremap <silent> <unique> <script> <Plug>LHDiff          :LHDiff<cr>
+nnoremap <silent> <Plug>(LH-LoadAll)       :LHLoadAll<cr>
+nnoremap <silent> <Plug>(LH-WriteDated)    :LHWrite<cr>
+nnoremap          <Plug>(LH-WriteSnapshot) :LHWrite<Space>
+nnoremap <silent> <Plug>(LH-LoadDated)     :LHLoadDated<cr>
+nnoremap <silent> <Plug>(LH-LoadSnapshot)  :LHLoadSnapshot<cr>
+nnoremap <silent> <Plug>(LH-Delete)        :LHDelete<cr>
+nnoremap <silent> <Plug>(LH-Diff)          :LHDiff<cr>
