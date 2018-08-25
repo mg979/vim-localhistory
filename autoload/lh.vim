@@ -12,6 +12,7 @@ endfun
 
 fun! lh#get_files()
     let s:file_syntax = &syntax
+    let s:dir = b:lh_dir
     let files = split(globpath(b:lh_dir, "*", 1), '\n')
     let hidden = split(globpath(b:lh_dir, ".*", 1), '\n')
     let files = extend(files, hidden)
@@ -58,7 +59,7 @@ endfun
 
 fun! lh#delete_backups(...)
     for file in a:000
-        let path = lh#full_path(file)
+        let path = fnameescape(s:dir.lh#sep().file)
         silent execute '!rm '.path
         redraw!
         echom "Deleted ".path
@@ -68,7 +69,10 @@ endfun
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! lh#open_backup(file)
-    exe g:lh_open_mode. " " . lh#full_path(a:file)
+    exe g:lh_open_mode. " " . fnameescape(s:dir.lh#sep().a:file)
+    if exists('g:loaded_xtabline')
+        call add(g:xtabline.Tabs[tabpagenr()-1].buffers.extra, bufnr("%"))
+    endif
     let &syntax = s:file_syntax
 endfun
 
@@ -90,7 +94,7 @@ endfun
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! lh#full_path(file)
-    return fnameescape((b:lh_dir.lh#sep().a:file))
+    return fnameescape(b:lh_dir.lh#sep().a:file)
 endfun
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

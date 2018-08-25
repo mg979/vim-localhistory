@@ -22,25 +22,25 @@ let g:lh_autobackup_size      = get(g:, 'lh_autobackup_size', 10240)
 
 com! -nargs=? LHWrite call lh#backup_file(<f-args>)
 
-com! LHLoadDated call fzf#run({'source': lh#find_files(0),
+com! LHLoadDated redraw! | call fzf#vim#files('', {'source': lh#find_files(0),
             \ 'sink': function('lh#open_backup'), 'down': '30%',
-            \ 'options': '--multi --reverse --prompt "Local History >>>  "'})
+            \ 'options': '--multi --reverse --no-preview --prompt "Local History >>>  "'})
 
-com! LHLoadSnapshot call fzf#run({'source': lh#find_files(1),
+com! LHLoadSnapshot redraw! | call fzf#vim#files('', {'source': lh#find_files(1),
             \ 'sink': function('lh#open_backup'), 'down': '30%',
-            \ 'options': '--multi --reverse --prompt "Snapshots >>>  "'})
+            \ 'options': '--multi --reverse --no-preview --prompt "Snapshots >>>  "'})
 
-com! LHLoadAll call fzf#run({'source': lh#find_files(2),
+com! LHLoadAll redraw! | call fzf#vim#files('', {'source': lh#find_files(2),
             \ 'sink': function('lh#open_backup'), 'down': '30%',
-            \ 'options': '--multi --reverse --prompt "Snapshots >>>  "'})
+            \ 'options': '--multi --reverse --no-preview --prompt "Snapshots >>>  "'})
 
-com! LHDiff call fzf#run({'source': lh#find_files(2),
+com! LHDiff redraw! | call fzf#vim#files('', {'source': lh#find_files(2),
             \ 'sink': function('lh#diff'), 'down': '30%',
-            \ 'options': '--reverse --prompt "Diff with backup >>>  "'})
+            \ 'options': '--reverse --no-preview --prompt "Diff with backup >>>  "'})
 
-com! LHDelete call fzf#run({'source': lh#find_files(2),
+com! LHDelete redraw! | call fzf#vim#files('', {'source': lh#find_files(2),
             \ 'sink': function('lh#delete_backups'), 'down': '30%',
-            \ 'options': '--multi --reverse --prompt "Delete Backups >>>  "'})
+            \ 'options': '--multi --reverse --no-preview --prompt "Delete Backups >>>  "'})
 
 augroup plugin-lh
     autocmd!
