@@ -1,34 +1,30 @@
 ### Vim Local History
 
 
----
-#### Introduction                                                
+#### Introduction
 
 This plugin creates automatic and/or manual backups for your files, in
-predefined paths. Backups can be browsed with fzf-vim.
+predefined paths. Backups are browsed with fzf or built-in `:Explore`.
 
 Features:
 
 * automatic backup directories generation, mirroring actual file path
-* save backups with date or name (snapshots)
+* save backups with timestamp or name (snapshots)
 * load/delete backups with fzf
-* diff with dated backups/snapshots
+* perform diffs
 * optional autobackup on first load (configurable max size)
 * optional autobackup on save, if no recent backups are found (configurable)
 
 
 
----
-#### Requirements                                         
+#### Requirements
 
-[fzf-vim](https://github.com/junegunn/fzf.vim) is required.
-
-Tested in Linux only.
+[fzf](https://github.com/junegunn/fzf) is required for many commands.
 
 
 
----
-#### Installation                                         
+
+#### Installation
 
 Use [vim-plug](https://github.com/junegunn/vim-plug) or any other Vim plugin manager.
 
@@ -38,20 +34,19 @@ With vim-plug:
 
 
 
----
-#### Usage                                                       
+#### Usage
 
-You can set the base directory:
+Default base directory is `~/.local_history` (Unix) or `~\local_history` (Windows):
 
-    let g:lh_basedir = '~/.vim/local_history'
+    let g:lh_basedir = '~/.local_history'
 
 When saving a backup, the file will mirror the original path inside the base dir:
 
-    /some/path/file -> ~/.vim/local_history/some/path/file
+    /path/to/file -> ~/.local_history/path/to/file
 
-Disable keymappings with:
+To enable mappings, specify a prefix, for example:
 
-    let g:local_history_disable_mappings = 1
+    let g:lh_mappings_prefix = 'gh'
 
 Change the position in which files are opened (eg. `vs`, `sp`, `edit`, `botright` `vs`, etc):
 
@@ -63,8 +58,7 @@ Set to 0 if you prefer horizontal split for diff windows:
 
 
 
----
-#### Autobackup                                             
+#### Autobackup
 
 To enable autobackup, you must first set these variables. It will only work
 after Vim has been restarted. Max size affects both types of autobackup.
@@ -80,42 +74,36 @@ Activate autobackup after save, if no recent backup is found (frequency in minut
 
 
 
----
-#### Commands                                                  
+
+#### Commands
 
 
-|Command               | Mapping                | Default |
-|----------------------|------------------------|---------|
-|:LHwrite              | `<Plug>LHWriteDated`   | ght     |
-|:LHwrite <name>       | `<Plug>LHWriteSnapshot`| ghs     |
-|:LHdiff               | `<Plug>LHDiff`         | ghd     |
-|:LHdated              | `<Plug>LHLoadDated`    | ghT     |
-|:LHsnapshot           | `<Plug>LHLoadSnapshot` | ghS     |
-|:LHdelete             | `<Plug>LHDelete`       | ghD     |
-|:LHall                | `<Plug>LHLoadAll`      | gha     |
+|Command               |  Map                  |                                              |
+|----------------------|-----------------------|----------------------------------------------|
+|:LHLoad               |  ghl                  | load either timestamped backup or snapshot   |
+|:LHLoadTimestamp      |  ght                  | load a backup with timestamp                 |
+|:LHLoadSnapshot       |  ghs                  | load a snapshot                              |
+|:LHWrite              |  ghw                  | write a backup with timestamp                |
+|:LHWrite <name>       |  gh <kbd>Space</kbd>  | write a named backup (snapshot)              |
+|:LHDiff               |  ghd                  | select a backup and open a split diff window |
+|:LHDelete             |  ghx                  | delete backups for current dir (all types)   |
+|:LHBrowse             |  ghb                  | browse the current backup directory          |
 
-    LHwrite         : write a backup with date
-    LHwrite <name>  : write a named backup (snapshot)
-    LHdated         : load a backup with a date
-    LHsnapshot      : load a snapshot
-    LHdiff          : select a backup and open a split diff window
-    LHdelete        : delete backups for current dir (all types)
-    LHall           : load any backup
-
-`LHdated`, `LHsnapshot`, `LHdiff`, `LHall` and `LHdelete` use *fzf-vim*, and you can
-select multiple files.
+The displayed mappings are only enabled if a prefix has been defined (here `gh`
+is used, as example). Commands use *fzf*, and you can select multiple files.
 
 
 
----
-#### Credits                                                   
 
-Braam Moolenaar for Vim
+#### Credits
+
+Bram Moolenaar for Vim
 
 
 
----
-#### License                                                   
+
+#### License
+
 
 MIT
 
