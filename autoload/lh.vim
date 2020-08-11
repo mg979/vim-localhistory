@@ -2,6 +2,7 @@
 " Write backup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let s:sep = has('win32') ? '\' : '/'
 
 fun! lh#backup_file(name) abort
     " Write backup for current file.
@@ -21,8 +22,7 @@ fun! lh#backup_file(name) abort
         endif
     endif
 
-    let sep = has('win32') ? '\' : '/'
-    let bkname = printf("%s%s%s %s", b:lh_dir, sep, expand("%:t"), stamp)
+    let bkname = printf("%s%s%s %s", b:lh_dir, s:sep, expand("%:t"), stamp)
     call s:do_backup(bkname)
 endfun
 
@@ -181,8 +181,8 @@ fun! lh#bufenter() abort
 
         call s:make_backup_dir()
         let bkname = expand("%:t") . " § AUTOSAVE"
-        if !filereadable(bkname)
-            call s:do_backup(bkname)
+        if !filereadable(b:lh_dir . s:sep . bkname)
+            call lh#backup_file('AUTOSAVE')
         endif
     endif
 endfun
