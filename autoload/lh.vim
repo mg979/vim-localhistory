@@ -271,7 +271,10 @@ endfun
 
 fun! s:valid_file() abort
     " If a file is eligible for backup or not.
-    return buflisted(bufnr('')) && &buftype == '' && expand('%:p') !~ '\V\^'.expand(g:lh_basedir)
+    return buflisted(bufnr('')) &&
+                \ &buftype == '' &&
+                \ &filetype !~ 'git' &&
+                \ expand('%:p') !~ '\V\^'.expand(g:lh_basedir)
 endfun
 
 
